@@ -2,4 +2,11 @@
 
 {% block content %}
     <h1>Hello my name is priyanshu Kumar</h1>
+    {% for article in top_10_recent_articles %}
+    <a href="{% url 'get_article' article.pk %}"><h2>{{ article.title }}</h2></a>
+    <p>{{ article.body|slice:":10" }}</p>
+    <p>Published on: {{ article.createdAt }}</p>
+    <p>Authors: {% for author in article.authors.all %}{{ author.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+{% endfor %}
+
 {% endblock %}
