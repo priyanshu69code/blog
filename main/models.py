@@ -15,7 +15,7 @@ class Articles(models.Model):
     title = models.CharField(max_length=256)
     body = models.TextField()
     createdAt = models.DateField(auto_now_add=True)
-    authors = models.ManyToManyField("Author")
+    authors = models.ManyToManyField(Author)
 
     def __str__(self):
         return self.title
