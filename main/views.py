@@ -25,3 +25,22 @@ def author(request, pk):
     }
 
     return render(request, "main/author.html", context)
+
+
+def create_articles(request):
+    authors = models.Author.objects.all()
+    context = {
+        "authors": authors
+    }
+    if request.method == "POST":
+        article_data = {
+            "title": request.POST['title'],
+            "body": request.POST['content']
+        }
+        article = models.Articles.objects.create(**article_data)
+        author = models.Author.objects.filter(pk=request.POST["authors"])
+        article.authors.set(author)
+        # author = models.Author.objects.get(pk=request.POST["authors"])
+        # article.authors.set([author])
+        context["sucess"] = True
+    return render(request, "main/create_article.html", context)
